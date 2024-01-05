@@ -1,0 +1,288 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;400&family=Poppins:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <center>
+      <div id="root">
+        <h2 class="header"><u>Tax Invoice</u></h2>
+        <table class="head-table">
+          <tr>
+            <td rowspan="4" style="width: 50%">
+              <b id="bold-heading">Cool Point </b>
+              <br />
+              Lake View, Plot No.146/A, Shop No.2,Near Old Ganpati Visarjan
+              Talav, Navi Mumbai - 400709 EMAIL: Mahendraupadhyay002@gmail.com
+              <br />
+              <b>email: </b>
+              <span style="text-transform: lowercase"
+                >Mahendraupadhyay002@gmail.com</span
+              >
+              <br />
+              <b>GSTIN 27AATPU8287C1ZV</b>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Invoice no. <br />
+             <b><%= invoice_no %>/<%= f_year %></b> 
+            </td>
+            <td>
+              Invoice Date
+              <br />
+              <b> <%= invoice_date %> </b>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              Terms of payment <br />
+              &nbsp;
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Customer ref. no. <br />
+              &nbsp;
+            </td>
+            <td>Other references(s)</td>
+          </tr>
+          <tr>
+            <td rowspan="5">
+              <b id="bold-heading"> <%= customer.name %> </b>
+              <br />
+              <%= customer.address %>
+              <br />
+              <b>email: </b>
+              <span style="text-transform: lowercase"
+                ><%= customer.email %></span
+              >
+              <br />
+              <b>GSTIN <%= customer.gst_no %></b>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Customer order no. <br />
+              <% if (consumer_order_no) { %>
+              <b> <%= consumer_order_no %></b>
+              <% } else { %>
+               &nbsp;
+              <% } %>
+            </td>
+            <td>Dated
+              
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Dispatch Document no.
+              <br />
+              &nbsp;
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              Dispatch Through
+              <br />
+              &nbsp;
+            </td>
+            <td>Destination</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Terms of delivery
+              <br>
+              <% if (terms_of_delivery) { %>
+              <b> <%= terms_of_delivery %></b>
+              <br />
+              &nbsp;
+              <% } else { %>
+               <br />
+               &nbsp;
+               <br />
+               &nbsp;
+              <% } %>
+            </td>
+          </tr>
+        </table>
+
+        <!-- items table -->
+        <!-- 15 rows maximum and  2 rows for sgst and cgst -->
+        <table class="item-table">
+          <!-- headings -->
+          <tr>
+            <th>No.</th>
+            <th>Particulars</th>
+            <th>HSN/SAC</th>
+            <th>Qty</th>
+            <th>Rate</th>
+            <th>Per</th>
+            <th>Amount</th>
+          </tr>
+          <!-- items -->
+          <% items.forEach((item, index) => { %>
+            <% if(index==0) {%>
+              <% if(item.type==="heading") {%>
+                <tr>
+                  <td></td>
+                  <td><b><%= item.particular %></b></td>
+                  <td>995469</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr> 
+              <% } else { %>
+                <tr>
+                  <td><%= item.serial_no %>.</td>
+                  <td><%= item.particular %></td>
+                  <td>995469</td>
+                  <td><%= item.quantity %></td>
+                  <td><%= item.rate %>/-</td>
+                  <td><%= item.per %></td>
+                  <td><%= item.amount %></td>
+                </tr>
+              <% } %>
+            <% }else{ %>
+              <% if(item.type==="heading") {%>
+                <tr>
+                  <td></td>
+                  <td><b><%= item.particular %></b></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr> 
+              <% } else { %>
+                  <tr>
+                    <td><%= item.serial_no %>.</td>
+                    <td><%= item.particular %></td>
+                    <td></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.rate %>/-</td>
+                    <td><%= item.per %></td>
+                    <td><%= item.amount %></td>
+                  </tr>
+              <% } %>
+            <% } %>
+          <% }) %>
+          <!-- adding sgst and cgst rows -->
+          <tr>
+            <td></td>
+            <td style="text-align: right"><b>CGST@<%= c_gst %>%</b></td>
+            <td></td>
+            <td></td>
+            <td><b><%= c_gst %></b></td>
+            <td><b>%</b></td>
+            <td><%= c_gst_amount %></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style="text-align: right"><b>SGST@<%= s_gst %>%</b></td>
+            <td></td>
+            <td></td>
+            <td><b><%= s_gst %></b></td>
+            <td><b>%</b></td>
+            <td><%= s_gst_amount %></td>
+          </tr>
+          <!-- add empty rows -->
+          <% for(let count=0; count<no_of_empty_rows; count++){ %>
+            <tr>
+              <td>&nbsp;</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td> 
+              <td></td>
+            </tr>
+          <% } %>
+            
+          <!-- Grand total -->
+          <tr
+            style="border-top: 1px solid black; border-bottom: 1px solid black"
+          >
+            <td colspan="6"><b>total</b></td>
+            <td style="text-align: right; padding-right: 1mm"><b><%= grand_total %></b></td>
+          </tr>
+          <!-- amount in words -->
+          <tr>
+            <td colspan="7" style="text-align: left">
+              Amount chargable(in words)
+              <br />
+              <b><%= grand_total_in_words %></b>
+            </td>
+          </tr>
+        </table>
+        <!-- tax summary table -->
+        <table class="summary-table">
+          <tr>
+            <td rowspan="2" style="width: 30%">HSN/SAC</td>
+            <td rowspan="2" style="width: 10%">Taxable value</td>
+            <td colspan="2" style="width: 20%">Central tax</td>
+            <td colspan="2" style="width: 20%">state tax</td>
+            <td rowspan="2">Toatal amount</td>
+          </tr>
+          <tr>
+            <td>rate</td>
+            <td>amount</td>
+            <td>rate</td>
+            <td>amount</td>
+          </tr>
+          <tr>
+            <td>995469</td>
+            <td><%= total_amount %></td>
+            <td><%= c_gst %>%</td>
+            <td><%= c_gst_amount %></td>
+            <td><%= s_gst %>%</td>
+            <td><%= s_gst_amount %></td>
+            <td><%= grand_total %></td>
+          </tr>
+          <!-- tax amount -->
+          <tr>
+            <td colspan="7" style="text-align: left">
+              Tax amount(in words)
+              <br />
+              <b><%= tax_amount_in_words %></b>
+            </td>
+          </tr>
+        </table>
+        <!-- signature box -->
+        <table class="signature-table">
+          <tr>
+            <td style="width: 50%">
+              <b>Company's bank details</b>
+              <br />
+              Bank Name: G. P. Parsik Bank
+              <br />
+              A/C. No. 003011300003096
+              <br />
+              Branch & IFSC Code: Kopar Khairne / PJSB0000005
+            </td>
+            <td style="width: 50%; text-align: right">
+              <br />
+              <b>For Cool Point</b>
+              <br />
+              <br />
+              <b>Authorised signatory</b>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </center>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      window.print();
+    });
+  </script>
+</html>

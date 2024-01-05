@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Gemunu Libre", sans-serif;
+    font-family: "Poppins", sans-serif;
+    --heading-size: 18px;
+    --sub-heading-size: 14px;
+}
+
+#root {
+    width: 210mm;
+    /* originally 297 but change this is there's some issue */
+    height: 300mm;
+    overflow: hidden;
+    /* testing */
+    /* border: 1px solid red; */
+}
+
+b {
+    font-weight: 700;
+}
+
+#bold-heading {
+    font-weight: 700;
+    font-size: var(--heading-size);
+}
+
+.header {
+    font-weight: 700;
+    margin-bottom: 2mm;
+}
+
+.head-table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-transform: capitalize;
+}
+
+.head-table td {
+    border-left: 1px solid black;
+    padding: 1mm 0mm 0mm 1mm;
+    text-align: start;
+    vertical-align: top;
+    min-width: 25%;
+    font-size: var(--sub-heading-size);
+}
+
+.head-table tr {
+    border-bottom: 1px solid black;
+}
+
+/* items table */
+.item-table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-transform: capitalize;
+}
+
+.item-table tr th {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.item-table tr td {
+    border-left: 1px solid black;
+    padding: 1mm 0mm 0mm 1mm;
+    text-align: start;
+    vertical-align: top;
+    min-width: 25%;
+    font-size: var(--sub-heading-size);
+}
+
+.item-table tr th:first-child {
+    width: 5%;
+}
+
+.item-table tr th:nth-child(2) {
+    width: 40%;
+}
+
+.item-table tr th:nth-child(3) {
+    width: 10%;
+}
+
+.item-table tr th:nth-child(4) {
+    width: 5%;
+}
+
+.item-table tr th:nth-child(5) {
+    width: 10%;
+}
+
+.item-table tr th:nth-child(6) {
+    width: 7%;
+}
+
+.item-table tr td:first-child {
+    text-align: right;
+    padding-right: 1mm;
+}
+
+.item-table tr td:nth-child(3),
+.item-table tr td:nth-child(4),
+.item-table tr td:nth-child(5),
+.item-table tr td:nth-child(6) {
+    text-align: center;
+}
+
+.item-table tr td:nth-child(7) {
+    text-align: right;
+    padding-right: 1mm;
+}
+
+/* tax summary table */
+.summary-table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-transform: capitalize;
+}
+
+.summary-table tr {
+    border-bottom: 1px solid black;
+}
+
+.summary-table td {
+    border-left: 1px solid black;
+    padding: 1mm 0mm 0mm 1mm;
+    text-align: center;
+    vertical-align: top;
+    min-width: 25%;
+    font-size: var(--sub-heading-size);
+}
+
+/* signature table */
+.signature-table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-transform: capitalize;
+    font-size: var(--sub-heading-size);
+    border-top: none;
+}
+
+.signature-table tr td {
+    padding: 1mm;
+}
