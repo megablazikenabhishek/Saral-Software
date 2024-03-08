@@ -8,7 +8,7 @@ require("dotenv").config();
 // cors
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://cool-point.vercel.app"],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
